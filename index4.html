@@ -26,6 +26,7 @@
       <li class="list-group-item">Item 2</li>
       <li class="list-group-item">Item 3</li>
       <li class="list-group-item">Item 4</li>
+      <li class="new-list-class">Item 5</li>
     </ul>
    </div>
   </div>
@@ -35,6 +36,15 @@ header.style.borderBottom='solid 3px black'
 var t=document.getElementById('add')
 t.style.fontWeight="bold";
 t.style.color="green";
+var items=document.getElementsByClassName('list-group-item');
+items[2].style.backgroundColor="red"
+for(var i=0;i<items.length;i++){
+    items[i].style.fontWeight="bold";
+    var list=document.getElementsByTagName('li')
+    list[4].style.color="red"
+    var diffclass=document.getElementsByClassName("new-list-class")
+    diffclass[0].style.backgroundColor="yellow"
+}
 </script>
 </body>
 </html>
