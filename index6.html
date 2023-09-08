@@ -53,6 +53,18 @@
     var h1=document.querySelector('header h1')
     //console.log(newDiv)
     container.insertBefore(newDiv,h1);
+    var parent=document.getElementById("items")
+    var x=parent.innerHTML;
+    //var x="Hello World"+x;
+    //console.log(x);
+    var newtag=document.createElement('li')
+    newtag.textContent="hello"
+    newtag.className="list-group-item"
+    //console.log(newtag)
+    //newtag=x.previousElementSibling
+    //console.log(parent)
+    parent.innerHTML=newtag.textContent+x;
+    //parent.appendChild(x)
 </script>
 </body>
 </html>
