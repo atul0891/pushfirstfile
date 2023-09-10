@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Reg Form</title>
+    <style>
+        
+        form {
+            background-color:'orange';
+            text-align: center;
+            }
+    
+    </style>
+</head>
+<body>
+   <div class=""container>
+    <h1 style="color:orange;text-align: center;"> Book a Call</h1>
+   <h3 style="text-align:center;">Book a call slot and our representative will call you within 1hr of selected time</h3>
+   
+   <hr>
+   <!--section class="container"-->
+    <form action='#' id="formid" onsubmit="onsignup(event)">
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="name" ><br>
+    <label for="mail">E-mail</label><br>
+    <input type="email" id="mail" name="mail" ><br>
+    <label for="fon">Phone</label><br>
+    <input type="text" id="fon" name="fon" ><br>
+    <label for="calltime">Time for call</label><br>
+    <input type="date" id="calltime" name="calldate" >
+    <input type="time" id="calltime" name="calltime1" ><br>
+    <button>Get a Call</button>
+   </form>
+   </div>
+   <!--/section-->
+   <script>
+    function onsignup(event){
+        event.preventDefault();
+        // localStorage.setItem('name',event.target.name.value)
+        // localStorage.setItem('e-mail',event.target.mail.value)
+        // localStorage.setItem('phone',event.target.fon.value)
+        // localStorage.setItem('appointment date',event.target.calldate.value)
+        // localStorage.setItem('appointment time',event.target.calltime1.value)
+        var myObj={
+            name:event.target.name.value,
+            email:event.target.mail.value,
+            phone: event.target.fon.value,
+            appointmentDate: event.target.calldate.value,
+            appointmentTime: event.target.calltime1.value
+        }
+        var myObjToStr=JSON.stringify(myObj)
+        localStorage.setItem('details',myObjToStr)
+        
+        
+                // retrieve the data
+//var data = JSON.parse( localStorage.getItem('details'));
+
+               // persist the data
+//localStorage.setItem( 'details', JSON.stringify( data ) );
+
+var newlink=document.createElement('li')
+        var txt=document.createTextNode(localStorage.getItem('details'))
+    
+     var form1=document.getElementById("formid")
+     
+        form1.appendChild(newlink)
+        newlink.appendChild(txt)
+
+        
+        var editBtn=document.createElement('button')
+        editBtn.className="edit"
+         var txt3=document.createTextNode('EDIT')
+         editBtn.appendChild(txt3)
+         newlink.appendChild(editBtn)
+
+         editBtn.addEventListener('click',editItem);
+    function editItem(e){
+    if(e.target.classList.contains('edit')){
+    //if(confirm('Are You Sure?')){
+      //var li = e.target.parentElement;
+      form1.removeChild(newlink);
+      localStorage.removeItem('details')
+    }}
+
+       
+    var dltBtn=document.createElement('button')
+        dltBtn.className="delete"
+     var txt2=document.createTextNode('DELETE')
+         dltBtn.appendChild(txt2)
+         newlink.appendChild(dltBtn)
+        // editBtn.insertBefore(dltBtn)
+
+        //delete an event
+    dltBtn.addEventListener('click',removeItem);
+    function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+    //   var li=e.target.parentElement
+      form1.removeChild(newlink);
+      localStorage.removeItem('details')
+    }else{
+        e.preventDefault()
+    }
+    
+    
+  }
+}
+     
+    
+}
+
+
+
+    
+    
+   </script>
+</body>
+</html>
