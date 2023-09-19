@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+    <label for="txt">Add Amount</label>
+    <input type="text" id="txt" name="text"></input>
+    <label for="descript">Add Description</label>
+    <input type="text" id="descript" name="description"></input>
+    <label for="category">Choose a category:</label>
+    <select id="category" name="category">
+    <option value="books">Books</option>
+    <option value="electronic">Electronic Gadgets</option>
+    <option value="clothes">Clothes</option>
+    <option value="toys">Toys</option>
+    <option value="shoes">Shoes</option>
+    <option value="appliances">Home Appliances</option>
+    <option value="furniture">Furniture</option>
+    </select>
+    <button>Add Expense</button>
+    </form>
+    <ul id="dataList"></ul>
+    <script>
+         document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var amount=document.getElementById('txt').value
+            var description=document.getElementById('descript').value
+            var category=document.getElementById('category').value
+
+            var myObj={
+            amount:amount,
+            description:description,
+            category:category
+            }
+
+          
+              // Get the current data (if any) from local storage
+              var storedData = JSON.parse(localStorage.getItem("myObj")) || [];
+
+// Add the new data to the existing data array
+storedData.push(myObj);
+
+// Store the updated data in local storage
+localStorage.setItem("myObj", JSON.stringify(storedData));
+
+ 
+// Clear the form fields
+    document.getElementById("txt").value = "";
+    document.getElementById("descript").value = "";
+    document.getElementById("category").value = "";
+
+    displayStoredData()
+
+      })
+
+        function displayStoredData() {
+            var storedData = JSON.parse(localStorage.getItem("myObj")) || [];
+            var dataList = document.getElementById("dataList");
+    
+            dataList.innerHTML = "";
+    
+            storedData.forEach(function(user, index) {
+                var listItem = document.createElement("li");
+                listItem.textContent = ` ${index + 1}: Amount spent is ${user.amount} on ${user.description} in  ${user.category} `;
+                dataList.appendChild(listItem);
+
+                var dltBtn=document.createElement('button')
+             dltBtn.className="delete"
+             var txt2=document.createTextNode('DELETE')
+             dltBtn.appendChild(txt2)
+             listItem.appendChild(dltBtn)
+
+             var editBtn=document.createElement('button')
+             editBtn.className="edit"
+             var txt3=document.createTextNode('EDIT')
+             editBtn.appendChild(txt3)
+            listItem.appendChild(editBtn)
+
+                           
+        dltBtn.addEventListener('click',removeItem);
+    function removeItem(e){
+  if(e.target.classList.contains("delete")){
+    if(confirm('Are You Sure?')){
+      
+      storedData.splice(index,1)
+      localStorage.setItem("myObj", JSON.stringify(storedData));
+       displayStoredData();
+      
+    }else{
+        e.preventDefault()
+    }
+  }
+}
+
+editBtn.addEventListener('click',function(){
+    var newAmount=prompt("Enter new Amount:", user.amount)
+    var newDescipt=prompt("Enter new Description:", user.description)
+    var newCategory=prompt("Enter new Category:", user.category)
+
+    user.amount=newAmount
+    user.description=newDescipt
+    user.category=newCategory
+
+    storedData[index]=user
+    localStorage.setItem("myObj", JSON.stringify(storedData));
+                    displayStoredData();
+
+
+
+            });
+        }
+
+         )}   displayStoredData()
+
+
+          
+ 
+       
+</script>
+</body>
+</html>
